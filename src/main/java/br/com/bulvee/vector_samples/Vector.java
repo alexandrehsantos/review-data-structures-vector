@@ -8,7 +8,8 @@ public class Vector<T> {
     private int totalObjects = 0;
 
 
-    public int add(T obj){
+    public int add(T obj) {
+        this.keepSpaceForArray();
         objects[totalObjects] = obj;
 
         return totalObjects++;
@@ -18,10 +19,10 @@ public class Vector<T> {
         return totalObjects;
     }
 
-    public boolean contains(Object object){
-        if(object == null) throw new IllegalArgumentException();
-        for(int i = 0; i< totalObjects; i++){
-            if(object.equals(objects[i])){
+    public boolean contains(Object object) {
+        if (object == null) throw new IllegalArgumentException();
+        for (int i = 0; i < totalObjects; i++) {
+            if (object.equals(objects[i])) {
                 return true;
             }
         }
@@ -43,9 +44,19 @@ public class Vector<T> {
         return index >=0 && index <= totalObjects;
     }
 
-    public void add(int index, T object){
+    private void keepSpaceForArray() {
+        if (totalObjects == objects.length) {
+            T[] newArrayOfObjects = (T[]) new Object[totalObjects * 2];
+            for (int i = 0; i < objects.length; i++) {
+                newArrayOfObjects[i] = objects[i];
+            }
+            this.objects = newArrayOfObjects;
+        }
+    }
 
-        if(!isValidIndexForAddBetween(index)){
+    public void add(int index, T object) {
+        this.keepSpaceForArray();
+        if (!isValidIndexForAddBetween(index)) {
             throw new IllegalArgumentException("Invalid index.");
         }
 
