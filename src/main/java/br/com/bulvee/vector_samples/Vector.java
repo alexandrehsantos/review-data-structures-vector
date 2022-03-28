@@ -9,7 +9,7 @@ public class Vector<T> {
 
 
     public int add(T obj) {
-        this.keepSpaceForArray();
+        this.keepSizeForArray();
         objects[totalObjects] = obj;
 
         return totalObjects++;
@@ -44,7 +44,7 @@ public class Vector<T> {
         return index >=0 && index <= totalObjects;
     }
 
-    private void keepSpaceForArray() {
+    private void keepSizeForArray() {
         if (totalObjects == objects.length) {
             T[] newArrayOfObjects = (T[]) new Object[totalObjects * 2];
             for (int i = 0; i < objects.length; i++) {
@@ -55,7 +55,7 @@ public class Vector<T> {
     }
 
     public void add(int index, T object) {
-        this.keepSpaceForArray();
+        this.keepSizeForArray();
         if (!isValidIndexForAddBetween(index)) {
             throw new IllegalArgumentException("Invalid index.");
         }
